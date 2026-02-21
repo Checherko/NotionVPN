@@ -1,0 +1,601 @@
+🚀 Демонстрация RemnaWave Management API
+Этот скрипт показывает полный рабочий процесс управления VPN клиентами
+
+docker-compose exec api python demo.py
+
+==================================================
+Шаг 1: Создание нового клиента с подпиской на 30 дней
+==================================================
+
+Создан клиент:
+{
+  "id": "d996f7dc-5ef6-4821-a2c8-14115822747b"
+}
+✅ Клиент создан с ID: d996f7dc-5ef6-4821-a2c8-14115822747b
+
+==================================================
+Шаг 2: Получение информации о клиенте
+==================================================
+
+Информация о клиенте:
+{
+  "id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+  "status": "active",
+  "expires_at": "2026-03-23T14:14:42.814505Z",
+  "created_at": "2026-02-21T14:14:42.833083Z",
+  "updated_at": "2026-02-21T14:14:42.833083Z"
+}
+
+==================================================
+Шаг 3: Получение конфигурации клиента
+==================================================
+
+Конфигурация клиента:
+{
+  "id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+  "config_data": {
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "server": "mock-server.example.com",
+    "port": 443,
+    "protocol": "vless",
+    "uuid": "973acee4-aff9-4d3c-a797-fb154ddc7bfc",
+    "encryption": "none",
+    "flow": "xtls-rprx-vision",
+    "generated_at": "2026-02-21T14:14:42.851649+00:00"
+  },
+  "generated_at": "2026-02-21T14:14:42.885043Z"
+}
+
+==================================================
+Шаг 4: Продление подписки на 15 дней
+==================================================
+
+Результат продления:
+{
+  "message": "Subscription extended successfully",
+  "expires_at": "2026-04-07T14:14:42.814505+00:00"
+}
+
+==================================================
+Шаг 5: Блокировка клиента
+==================================================
+
+Результат блокировки:
+{
+  "message": "Client blocked successfully"
+}
+
+==================================================
+Шаг 6: Попытка получить конфигурацию заблокированного клиента
+==================================================
+
+Конфигурация заблокированного клиента:
+{
+  "id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+  "config_data": {
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "server": "mock-server.example.com",
+    "port": 443,
+    "protocol": "vless",
+    "uuid": "973acee4-aff9-4d3c-a797-fb154ddc7bfc",
+    "encryption": "none",
+    "flow": "xtls-rprx-vision",
+    "generated_at": "2026-02-21T14:14:42.851649+00:00"
+  },
+  "generated_at": "2026-02-21T14:14:42.922625Z"
+}
+
+==================================================
+Шаг 7: Разблокировка клиента
+==================================================
+
+Результат разблокировки:
+{
+  "message": "Client unblocked successfully"
+}
+
+==================================================
+Шаг 8: Перевыпуск конфигурации (ротация ключа)
+==================================================
+
+Новая конфигурация:
+{
+  "message": "Client config rotated successfully",
+  "new_config": {
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "server": "mock-server.example.com",
+    "port": 443,
+    "protocol": "vless",
+    "uuid": "bf63e0ab-6329-42ad-88db-380e6e92fd7d",
+    "encryption": "none",
+    "flow": "xtls-rprx-vision",
+    "generated_at": "2026-02-21T14:14:42.940431+00:00",
+    "rotated": true
+  }
+}
+
+==================================================
+Шаг 9: Получение списка всех клиентов
+==================================================
+
+Список клиентов:
+[
+  {
+    "id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "status": "active",
+    "expires_at": "2026-04-07T14:14:42.814505Z",
+    "created_at": "2026-02-21T14:14:42.833083Z",
+    "updated_at": "2026-02-21T14:14:42.926444Z"
+  },
+  {
+    "id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "status": "active",
+    "expires_at": "2026-04-07T13:01:24.445121Z",
+    "created_at": "2026-02-21T13:01:24.447514Z",
+    "updated_at": "2026-02-21T13:01:24.589020Z"
+  },
+  {
+    "id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "status": "active",
+    "expires_at": "2026-04-07T13:00:24.793252Z",
+    "created_at": "2026-02-21T13:00:24.889169Z",
+    "updated_at": "2026-02-21T13:00:25.387827Z"
+  }
+]
+
+==================================================
+Шаг 10: Просмотр аудита всех операций
+==================================================
+
+Аудит операций:
+[
+  {
+    "id": "a3e92c4f-e40c-4aca-8cf6-7262eede2929",
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "action": "config_rotate",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T14:14:42.939498Z"
+  },
+  {
+    "id": "d82a54a1-bce5-43fb-9665-e6df252c57fe",
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "action": "unblock",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T14:14:42.931072Z"
+  },
+  {
+    "id": "fcd324bb-b0fc-4922-a485-e02525ffeb2f",
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "action": "get_config",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T14:14:42.917403Z"
+  },
+  {
+    "id": "bd7180f1-b696-4c55-bb07-90323cdc4d27",
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "action": "block",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T14:14:42.910559Z"
+  },
+  {
+    "id": "20651f70-5699-47bd-8a0d-07aaf2d039b2",
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "action": "extend",
+    "payload": "{\"days\": 15}",
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T14:14:42.896252Z"
+  },
+  {
+    "id": "316d4c1e-e321-4845-8ac3-a1416c35c2c8",
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "action": "get_config",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T14:14:42.879849Z"
+  },
+  {
+    "id": "0bf5a236-459d-449d-a1c7-c0aca08b0d58",
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "action": "create",
+    "payload": "{\"days\": 30}",
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T14:14:42.848625Z"
+  },
+  {
+    "id": "9cfe1a05-6406-4a62-b8c2-75cba8c7e524",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "delete",
+    "payload": null,
+    "result": "fail",
+    "error": "(psycopg2.errors.NotNullViolation) null value in column \"client_id\" of relation \"operations\" violates not-null constraint\nDETAIL:  Failing row contains (5de5272e-50a8-46b0-81f0-8e2dca8053d2, null, create, {\"days\": 30}, success, null, 2026-02-21 13:01:24.461606+00).\n\n[SQL: UPDATE operations SET client_id=%(client_id)s::UUID WHERE operations.id = %(operations_id)s::UUID]\n[parameters: [{'client_id': None, 'operations_id': UUID('5de5272e-50a8-46b0-81f0-8e2dca8053d2')}, {'client_id': None, 'operations_id': UUID('7704f740-4efc-4918-844d-88ca7286f5ab')}, {'client_id': None, 'operations_id': UUID('79d9f5a0-2a19-4224-b809-dcf2a0f9de03')}, {'client_id': None, 'operations_id': UUID('9ddddf35-07dd-4a46-8449-21a1c3074f59')}, {'client_id': None, 'operations_id': UUID('9eaa6b45-157b-4b8e-b859-0c12fdda8ceb')}, {'client_id': None, 'operations_id': UUID('c9398be6-cc74-4a88-9227-dd204e72f4bb')}, {'client_id': None, 'operations_id': UUID('e2eb284f-08a0-4f59-a499-13bfd0592bb5')}, {'client_id': None, 'operations_id': UUID('f1899172-d675-42a7-9302-238f992995f6')}]]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)",
+    "created_at": "2026-02-21T13:01:24.697159Z"
+  },
+  {
+    "id": "79d9f5a0-2a19-4224-b809-dcf2a0f9de03",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "delete",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.677518Z"
+  },
+  {
+    "id": "9eaa6b45-157b-4b8e-b859-0c12fdda8ceb",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "config_rotate",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.613592Z"
+  },
+  {
+    "id": "7704f740-4efc-4918-844d-88ca7286f5ab",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "unblock",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.603448Z"
+  },
+  {
+    "id": "f1899172-d675-42a7-9302-238f992995f6",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "get_config",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.576404Z"
+  },
+  {
+    "id": "9ddddf35-07dd-4a46-8449-21a1c3074f59",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "block",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.566784Z"
+  },
+  {
+    "id": "e2eb284f-08a0-4f59-a499-13bfd0592bb5",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "extend",
+    "payload": "{\"days\": 15}",
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.521457Z"
+  },
+  {
+    "id": "c9398be6-cc74-4a88-9227-dd204e72f4bb",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "get_config",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.499410Z"
+  },
+  {
+    "id": "5de5272e-50a8-46b0-81f0-8e2dca8053d2",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "create",
+    "payload": "{\"days\": 30}",
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.461606Z"
+  },
+  {
+    "id": "d9731494-a214-488e-a28d-7711a8cf2761",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "delete",
+    "payload": null,
+    "result": "fail",
+    "error": "(psycopg2.errors.NotNullViolation) null value in column \"client_id\" of relation \"operations\" violates not-null constraint\nDETAIL:  Failing row contains (003a518c-8d85-4d74-b438-9f1e952aa2f6, null, block, null, success, null, 2026-02-21 13:00:25.304301+00).\n\n[SQL: UPDATE operations SET client_id=%(client_id)s::UUID WHERE operations.id = %(operations_id)s::UUID]\n[parameters: [{'client_id': None, 'operations_id': UUID('003a518c-8d85-4d74-b438-9f1e952aa2f6')}, {'client_id': None, 'operations_id': UUID('1632f1f3-3e5e-46c0-a55a-26f33f0882c9')}, {'client_id': None, 'operations_id': UUID('6406ab21-0fab-4dba-919f-5058e804c0eb')}, {'client_id': None, 'operations_id': UUID('69d7ef4e-b078-4f04-aa91-152657b60263')}, {'client_id': None, 'operations_id': UUID('b24bcc39-981d-4326-be9c-fa25ea269695')}, {'client_id': None, 'operations_id': UUID('d1145164-d9c5-4970-9611-ab3e12ae3ca3')}, {'client_id': None, 'operations_id': UUID('ef49078c-4360-44a9-a4b6-7a2a70c2ef32')}]]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)",
+    "created_at": "2026-02-21T13:00:25.608987Z"
+  },
+  {
+    "id": "1632f1f3-3e5e-46c0-a55a-26f33f0882c9",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "config_rotate",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:00:25.403884Z"
+  },
+  {
+    "id": "d1145164-d9c5-4970-9611-ab3e12ae3ca3",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "unblock",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:00:25.393405Z"
+  },
+  {
+    "id": "ef49078c-4360-44a9-a4b6-7a2a70c2ef32",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "get_config",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:00:25.369498Z"
+  },
+  {
+    "id": "003a518c-8d85-4d74-b438-9f1e952aa2f6",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "block",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:00:25.304301Z"
+  },
+  {
+    "id": "6406ab21-0fab-4dba-919f-5058e804c0eb",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "extend",
+    "payload": "{\"days\": 15}",
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:00:25.273245Z"
+  },
+  {
+    "id": "69d7ef4e-b078-4f04-aa91-152657b60263",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "get_config",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:00:25.188370Z"
+  },
+  {
+    "id": "b24bcc39-981d-4326-be9c-fa25ea269695",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "create",
+    "payload": "{\"days\": 30}",
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:00:24.973044Z"
+  }
+]
+
+==================================================
+Шаг 11: Просмотр аудита для конкретного клиента
+==================================================
+
+Аудит операций клиента:
+[
+  {
+    "id": "a3e92c4f-e40c-4aca-8cf6-7262eede2929",
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "action": "config_rotate",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T14:14:42.939498Z"
+  },
+  {
+    "id": "d82a54a1-bce5-43fb-9665-e6df252c57fe",
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "action": "unblock",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T14:14:42.931072Z"
+  },
+  {
+    "id": "fcd324bb-b0fc-4922-a485-e02525ffeb2f",
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "action": "get_config",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T14:14:42.917403Z"
+  },
+  {
+    "id": "bd7180f1-b696-4c55-bb07-90323cdc4d27",
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "action": "block",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T14:14:42.910559Z"
+  },
+  {
+    "id": "20651f70-5699-47bd-8a0d-07aaf2d039b2",
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "action": "extend",
+    "payload": "{\"days\": 15}",
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T14:14:42.896252Z"
+  },
+  {
+    "id": "316d4c1e-e321-4845-8ac3-a1416c35c2c8",
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "action": "get_config",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T14:14:42.879849Z"
+  },
+  {
+    "id": "0bf5a236-459d-449d-a1c7-c0aca08b0d58",
+    "client_id": "d996f7dc-5ef6-4821-a2c8-14115822747b",
+    "action": "create",
+    "payload": "{\"days\": 30}",
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T14:14:42.848625Z"
+  },
+  {
+    "id": "9cfe1a05-6406-4a62-b8c2-75cba8c7e524",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "delete",
+    "payload": null,
+    "result": "fail",
+    "error": "(psycopg2.errors.NotNullViolation) null value in column \"client_id\" of relation \"operations\" violates not-null constraint\nDETAIL:  Failing row contains (5de5272e-50a8-46b0-81f0-8e2dca8053d2, null, create, {\"days\": 30}, success, null, 2026-02-21 13:01:24.461606+00).\n\n[SQL: UPDATE operations SET client_id=%(client_id)s::UUID WHERE operations.id = %(operations_id)s::UUID]\n[parameters: [{'client_id': None, 'operations_id': UUID('5de5272e-50a8-46b0-81f0-8e2dca8053d2')}, {'client_id': None, 'operations_id': UUID('7704f740-4efc-4918-844d-88ca7286f5ab')}, {'client_id': None, 'operations_id': UUID('79d9f5a0-2a19-4224-b809-dcf2a0f9de03')}, {'client_id': None, 'operations_id': UUID('9ddddf35-07dd-4a46-8449-21a1c3074f59')}, {'client_id': None, 'operations_id': UUID('9eaa6b45-157b-4b8e-b859-0c12fdda8ceb')}, {'client_id': None, 'operations_id': UUID('c9398be6-cc74-4a88-9227-dd204e72f4bb')}, {'client_id': None, 'operations_id': UUID('e2eb284f-08a0-4f59-a499-13bfd0592bb5')}, {'client_id': None, 'operations_id': UUID('f1899172-d675-42a7-9302-238f992995f6')}]]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)",
+    "created_at": "2026-02-21T13:01:24.697159Z"
+  },
+  {
+    "id": "79d9f5a0-2a19-4224-b809-dcf2a0f9de03",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "delete",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.677518Z"
+  },
+  {
+    "id": "9eaa6b45-157b-4b8e-b859-0c12fdda8ceb",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "config_rotate",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.613592Z"
+  },
+  {
+    "id": "7704f740-4efc-4918-844d-88ca7286f5ab",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "unblock",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.603448Z"
+  },
+  {
+    "id": "f1899172-d675-42a7-9302-238f992995f6",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "get_config",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.576404Z"
+  },
+  {
+    "id": "9ddddf35-07dd-4a46-8449-21a1c3074f59",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "block",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.566784Z"
+  },
+  {
+    "id": "e2eb284f-08a0-4f59-a499-13bfd0592bb5",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "extend",
+    "payload": "{\"days\": 15}",
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.521457Z"
+  },
+  {
+    "id": "c9398be6-cc74-4a88-9227-dd204e72f4bb",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "get_config",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.499410Z"
+  },
+  {
+    "id": "5de5272e-50a8-46b0-81f0-8e2dca8053d2",
+    "client_id": "26c1fc70-e754-499c-8eac-148e90bdc768",
+    "action": "create",
+    "payload": "{\"days\": 30}",
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:01:24.461606Z"
+  },
+  {
+    "id": "d9731494-a214-488e-a28d-7711a8cf2761",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "delete",
+    "payload": null,
+    "result": "fail",
+    "error": "(psycopg2.errors.NotNullViolation) null value in column \"client_id\" of relation \"operations\" violates not-null constraint\nDETAIL:  Failing row contains (003a518c-8d85-4d74-b438-9f1e952aa2f6, null, block, null, success, null, 2026-02-21 13:00:25.304301+00).\n\n[SQL: UPDATE operations SET client_id=%(client_id)s::UUID WHERE operations.id = %(operations_id)s::UUID]\n[parameters: [{'client_id': None, 'operations_id': UUID('003a518c-8d85-4d74-b438-9f1e952aa2f6')}, {'client_id': None, 'operations_id': UUID('1632f1f3-3e5e-46c0-a55a-26f33f0882c9')}, {'client_id': None, 'operations_id': UUID('6406ab21-0fab-4dba-919f-5058e804c0eb')}, {'client_id': None, 'operations_id': UUID('69d7ef4e-b078-4f04-aa91-152657b60263')}, {'client_id': None, 'operations_id': UUID('b24bcc39-981d-4326-be9c-fa25ea269695')}, {'client_id': None, 'operations_id': UUID('d1145164-d9c5-4970-9611-ab3e12ae3ca3')}, {'client_id': None, 'operations_id': UUID('ef49078c-4360-44a9-a4b6-7a2a70c2ef32')}]]\n(Background on this error at: https://sqlalche.me/e/20/gkpj)",
+    "created_at": "2026-02-21T13:00:25.608987Z"
+  },
+  {
+    "id": "1632f1f3-3e5e-46c0-a55a-26f33f0882c9",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "config_rotate",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:00:25.403884Z"
+  },
+  {
+    "id": "d1145164-d9c5-4970-9611-ab3e12ae3ca3",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "unblock",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:00:25.393405Z"
+  },
+  {
+    "id": "ef49078c-4360-44a9-a4b6-7a2a70c2ef32",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "get_config",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:00:25.369498Z"
+  },
+  {
+    "id": "003a518c-8d85-4d74-b438-9f1e952aa2f6",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "block",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:00:25.304301Z"
+  },
+  {
+    "id": "6406ab21-0fab-4dba-919f-5058e804c0eb",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "extend",
+    "payload": "{\"days\": 15}",
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:00:25.273245Z"
+  },
+  {
+    "id": "69d7ef4e-b078-4f04-aa91-152657b60263",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "get_config",
+    "payload": null,
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:00:25.188370Z"
+  },
+  {
+    "id": "b24bcc39-981d-4326-be9c-fa25ea269695",
+    "client_id": "a69322a6-45ad-4e27-9eb7-2cc169822a87",
+    "action": "create",
+    "payload": "{\"days\": 30}",
+    "result": "success",
+    "error": null,
+    "created_at": "2026-02-21T13:00:24.973044Z"
+  }
+]
+
+==================================================
+Шаг 12: Удаление клиента
+==================================================
+
+Результат удаления:
+{
+  "message": "Client deleted successfully"
+}
